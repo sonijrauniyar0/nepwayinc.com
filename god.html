@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NEPWAY INC</title>
+<meta name="description" content="SOS HGS School Itahari — Where character meets excellence.">
+
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+  :root{
+    --sky-50:#f0f9ff; --sky-100:#e0f2fe; --sky-200:#bae6fd; --sky-300:#7dd3fc;
+    --sky-400:#38bdf8; --sky-500:#0ea5e9; --sky-600:#0284c7; --sky-700:#0369a1;
+    --ink:#0b1b2b; --muted:#5b7894; --card:#ffffff; --ring:#38bdf8;
+    --grad: radial-gradient(1200px 600px at 10% -10%, rgba(56,189,248,.25), transparent 60%),
+            linear-gradient(180deg, var(--sky-50), #fff);
+    --radius:18px; --shadow:0 20px 50px rgba(2, 64, 118, .15);
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0; font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    color:var(--ink); background:var(--grad);
+    scroll-behavior:smooth; overflow-x:hidden;
+  }
+  a{color:inherit; text-decoration:none}
+  a:hover, a:focus {
+    color: var(--sky-600);
+    outline: none;
+  }
+  a:focus, button:focus, input:focus, select:focus, textarea:focus {
+    outline: 2px solid var(--sky-500);
+    outline-offset: 2px;
+  }
+  img{max-width:100%; display:block; user-select:none}
+  .container{max-width:1180px; margin-inline:auto; padding: clamp(16px,2vw,24px)}
+
+  
+  header{
+    position:sticky; top:0; z-index:50;
+    backdrop-filter: blur(12px) saturate(130%);
+    background:linear-gradient(180deg, rgba(224,242,254,.9), rgba(224,242,254,.7));
+    border-bottom:1px solid rgba(2,132,199,.15);
+  }
+  .nav{display:flex; align-items:center; justify-content:space-between; gap:14px}
+  .brand{display:flex; align-items:center; gap:10px}
+  .brand img{width:42px; height:42px; object-fit:contain; border-radius:10px; background:#fff; padding:4px}
+  .brand .name{font-weight:800; letter-spacing:.4px}
+  .brand .sub{font-size:12px; color:var(--muted); margin-top:-6px}
+  .links{display:flex; gap:10px; flex-wrap:wrap}
+  .chip{
+    padding:8px 12px; border-radius:999px; border:1px solid rgba(2,132,199,.18);
+    background:linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,.7));
+    font-weight:600;
+    transition: box-shadow 0.3s ease;
+  }
+  .chip:hover, .chip:focus{box-shadow:0 0 0 2px rgba(56,189,248,.35) inset; outline:none}
+  .cta{
+    padding:10px 14px; border-radius:12px; border:none; cursor:pointer; font-weight:700; color:white;
+    background:linear-gradient(135deg, var(--sky-500), var(--sky-600));
+    box-shadow: var(--shadow);
+    transition: background 0.3s ease;
+  }
+  .cta:hover, .cta:focus {
+    background: linear-gradient(135deg, var(--sky-600), var(--sky-700));
+    outline:none;
+  }
+  .menu{display:none}
+  @media(max-width:900px){
+    .links{display:none}
+    .menu{display:block; border:1px solid rgba(2,132,199,.2); background:#fff; border-radius:10px; padding:8px 10px; cursor:pointer}
+    .drawer{position:fixed; inset:60px 16px auto 16px; background:#fff; border:1px solid rgba(2,132,199,.2); border-radius:14px; padding:12px; display:none; z-index:100;}
+    .drawer.open{display:grid; gap:8px}
+    .drawer a{padding:10px 12px; border-radius:10px; background:var(--sky-50); border:1px solid rgba(2,132,199,.12)}
+    .drawer a:hover, .drawer a:focus {background: var(--sky-100); outline:none;}
+  }
+
+  
+  .hero{
+    position:relative; padding: clamp(30px, 6vw, 80px) 0 40px;
+    display:grid; grid-template-columns: 1.1fr .9fr; gap:24px; align-items:center;
+  }
+  .hero h1{font-size: clamp(28px, 4.6vw, 58px); line-height:1.05; margin:0 0 10px}
+  .lead{color:var(--muted); font-size: clamp(15px, 1.4vw, 18px)}
+  .hero .actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px}
+  .panel{
+    background:linear-gradient(180deg, rgba(255,255,255,.8), rgba(255,255,255,.6));
+    border:1px solid rgba(2,132,199,.18); border-radius: var(--radius); padding:16px; box-shadow: var(--shadow)
+  }
+  
+  .clouds{position:absolute; inset:0; pointer-events:none; overflow:hidden}
+  .cloud{
+    position:absolute; width: clamp(120px, 20vw, 280px); height: clamp(60px, 10vw, 140px);
+    background:radial-gradient(closest-side, #fff, rgba(255,255,255,.85) 60%, rgba(255,255,255,0) 70%);
+    filter: blur(2px); border-radius: 100px; opacity:.8; animation: float linear infinite;
+  }
+  .cloud.c1{top:10%; left:-20%; animation-duration: 60s}
+  .cloud.c2{top:30%; left:110%; animation-duration: 80s; animation-direction: reverse}
+  .cloud.c3{top:65%; left:-25%; animation-duration: 70s}
+  @keyframes float { from{ transform: translateX(0)} to{ transform: translateX(140%)} }
+
+  
+  section{padding: 26px 0}
+  .section-title{display:flex; justify-content:space-between; align-items:end; gap:10px; margin-bottom:10px}
+  .h2{font-size: clamp(20px, 3vw, 30px); margin:0}
+  .muted{color:var(--muted)}
+
+  .grid{display:grid; gap:14px}
+  .grid-2{grid-template-columns:repeat(2,1fr)}
+  .grid-3{grid-template-columns:repeat(3,1fr)}
+  .card{
+    background:var(--card); border:1px solid rgba(2,132,199,.16); border-radius: var(--radius); padding:16px;
+    box-shadow: var(--shadow); transform-origin: center; transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .card:hover, .card:focus-within{transform: translateY(-4px); box-shadow: 0 24px 60px rgba(3,105,161,.18); outline:none;}
+  .pill{display:inline-flex; align-items:center; gap:6px; padding:6px 10px; border-radius:999px;
+        background:linear-gradient(180deg, rgba(56,189,248,.15), rgba(56,189,248,.08)); color:#0369a1; border:1px solid rgba(56,189,248,.35); font-weight:600; font-size:12px}
+
+  
+  .notice{
+    border:1px solid rgba(2,132,199,.2); background:linear-gradient(180deg,#fff, #f7fbff);
+    border-radius:12px; overflow:hidden; position:relative;
+  }
+  .marquee{white-space:nowrap; animation: ticker 18s linear infinite; padding:10px 0; font-weight:600; color:#0369a1;}
+  .marquee:hover{animation-play-state: paused}
+  @keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+  
+  /* Carousel styles */
+  .carousel {
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+    height: 260px;
+    user-select: none;
+  }
+
+  .slides {
+    display: flex;
+    width: 300%;
+    height: 100%;
+    transition: transform 0.5s ease-in-out;
+  }
+
+  .slides img {
+    width: 100%;
+    flex-shrink: 0;
+    object-fit: cover;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .carousel:hover .slides {
+    /* Pause animation on hover */
+    animation-play-state: paused !important;
+  }
+
+  /* Remove old keyframe animation for slides */
+  @keyframes slide {
+    0%, 28% {transform: translateX(0);}
+    33%, 61% {transform: translateX(-100%);}
+    66%, 94% {transform: translateX(-200%);}
+    100% {transform: translateX(-200%);}
+  }
+
+  
+  .teacher{display:flex; gap:12px; align-items:center}
+  .avatar{
+    width:62px; height:62px; border-radius:50%;
+    background:linear-gradient(180deg,#fff,#eaf6ff); border:2px solid rgba(56,189,248,.45); display:grid; place-items:center; font-weight:800; color:#0369a1;
+    user-select:none;
+  }
+
+  
+  label{font-size:13px; color:var(--muted)}
+  input, textarea, select{
+    width:100%; padding:10px 12px; border-radius:12px; border:1px solid rgba(2,132,199,.25);
+    background:#fff; outline:none;
+    font-family: inherit;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+  }
+  input:focus, textarea:focus, select:focus {
+    border-color: var(--sky-500);
+  }
+  textarea{min-height:100px; resize:vertical}
+  .btn{padding:10px 14px; border-radius:12px; border:1px solid rgba(2,132,199,.25); background:linear-gradient(135deg,#fff, #f0f8ff); cursor:pointer; font-weight:700; transition: background 0.3s ease, border-color 0.3s ease;}
+  .btn:hover, .btn:focus {
+    background: linear-gradient(135deg, var(--sky-100), var(--sky-300));
+    border-color: var(--sky-500);
+    outline:none;
+  }
+  .btn.primary{background:linear-gradient(135deg, var(--sky-400), var(--sky-600)); color:white; border:none}
+  .btn.primary:hover, .btn.primary:focus {
+    background:linear-gradient(135deg, var(--sky-500), var(--sky-700));
+    outline:none;
+  }
+
+  
+  footer{
+    background:linear-gradient(180deg, rgba(14,165,233,.12), rgba(14,165,233,.06));
+    border-top:1px solid rgba(2,132,199,.18); color:#044063;
+    font-size: 14px;
+  }
+
+
+  .reveal{opacity:0; transform: translateY(18px) scale(.98); filter: blur(2px); transition: all .7s cubic-bezier(.2,.8,.2,1)}
+  .reveal.show{opacity:1; transform: none; filter:none}
+
+  
+  @media(max-width:960px){
+    .hero{grid-template-columns:1fr; text-align:center}
+    .grid-3{grid-template-columns:repeat(2,1fr)}
+  }
+  @media(max-width:640px){
+    .grid-2,.grid-3{grid-template-columns:1fr}
+    .carousel{height:220px}
+  }
+</style>
+</head>
+<body>
+  
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        
+        <img src="https://tse3.mm.bing.net/th/id/OIP.NqfShDA3T_UdqPgUS_jpPwHaHa?rs=1&pid=ImgDetMain&o=7&rm=3" alt="SOS HGS School logo" onerror="this.src='fallback-logo.png'">
+        <div>
+          <div class="name">NEPWAY INC,JHUMKA</div>
+          <div class="sub">Where character meets excellence</div>
+        </div>
+      </div>
+      <nav class="links" aria-label="Primary">
+        <a class="chip" href="#about">About</a>
+        <a class="chip" href="#academics">Academics</a>
+        <a class="chip" href="#admissions">Admissions</a>
+        <a class="chip" href="#news">News</a>
+        <a class="chip" href="#gallery">Gallery</a>
+        <a class="chip" href="#teachers">Teachers</a>
+        <a class="chip" href="#contact">Contact</a>
+      </nav>
+      <button class="menu" id="menuBtn" aria-label="Toggle menu">☰</button>
+      <button class="cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Apply Now</button>
+    </div>
+    <div class="container drawer" id="drawer" role="menu" aria-label="Mobile menu">
+      <a href="#about" role="menuitem">About</a>
+      <a href="#academics" role="menuitem">Academics</a>
+      <a href="#admissions" role="menuitem">Admissions</a>
+      <a href="#news" role="menuitem">News</a>
+      <a href="#gallery" role="menuitem">Gallery</a>
+      <a href="#teachers" role="menuitem">Teachers</a>
+      <a href="#contact" role="menuitem">Contact</a>
+    </div>
+  </header>
+
+  <!-- ===== Hero ===== -->
+  <div class="container hero">
+    <div>
+      <span class="pill">Welcome to NEPWAY INC</span>
+      <h1 class="reveal">Inspiring minds under a sky of possibilities.</h1>
+      <p class="lead reveal">From Grade 1 to Grade 10, we blend academics, character building, sports and arts—guided by care, curiosity, and community.</p>
+      <div class="actions reveal">
+        <a class="cta" href="#admissions">Start Admissions</a>
+        <a class="btn" href="#academics">Explore Academics</a>
+      </div>
+    </div>
+    <div class="panel reveal" aria-label="Key statistics and announcements">
+      <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:10px; text-align:center">
+        <div class="card"><div style="font-size:26px; font-weight:800" id="k1" aria-live="polite" aria-atomic="true">0</div><div class="muted">Students</div></div>
+        <div class="card"><div style="font-size:26px; font-weight:800" id="k2" aria-live="polite" aria-atomic="true">0</div><div class="muted">Teachers</div></div>
+        <div class="card"><div style="font-size:26px; font-weight:800" id="k3" aria-live="polite" aria-atomic="true">0</div><div class="muted">Clubs</div></div>
+      </div>
+      <div class="notice" style="margin-top:12px" aria-label="Latest announcements">
+        <div class="marquee" role="region" aria-live="polite" aria-atomic="true">
+          <span style="margin-right:40px">📢 Tution classes</span>
+          <span style="margin-right:40px">🏆 ITLES</span>
+          <span style="margin-right:40px">🎨 bridge course</span>
+          <span style="margin-right:40px">🎓 computer course</span>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+  
+  <section id="about" class="container">
+    <div class="section-title">
+      <h2 class="h2">About the Institute</h2>
+      <span class="pill">Established 2077 B.S.</span>
+    </div>
+    <div class="grid grid-2">
+      <div class="card reveal">
+        <h3>Our Vision</h3>
+        <p class="muted">A joyful learning community where every child feels safe, seen, and challenged to excel—with strong values and 21st-century skills.</p>
+        <ul>
+          <li>Holistic Education</li>
+          <li>Strong teachers Partnership</li>
+          <li>Community Service</li>
+        </ul>
+      </div>
+      <div class="card reveal">
+        <h3>Facilities      <div class="card reveal">
+        <h3>Facilities</h3>
+        <p class="muted"> Empowering students to lead with knowledge and character.</p>
+        <div class="grid grid-3" style="margin-top:8px">
+          <div class="pill">opt math</div>
+          <div class="pill">Science </div>
+          <div class="pill">Computer Lab</div>
+          <div class="pill">c-math</div>
+          <div class="pill">bridge course</div>
+          <div class="pill">tution Service</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <section id="academics" class="container">
+    <div class="section-title">
+      <h2 class="h2">Academics</h2>
+      <span class="pill">ECE • Primary • Lower Secondary • Secondary</span>
+    </div>
+    <div class="grid grid-3">
+      <div class="card reveal"><h3>Early Years</h3><p class="muted">Play-based learning that builds curiosity, language, and social skills.</p></div>
+      <div class="card reveal"><h3>Primary</h3><p class="muted">Strong foundation in Math, English, Nepali, Science and ICT.</p></div>
+      <div class="card reveal"><h3>Secondary</h3><p class="muted">Project-based learning, labs, clubs, sports, and SEE readiness.</p></div>
+    </div>
+  </section>
+
+ 
+  <section id="admissions" class="container">
+    <div class="section-title">
+      <h2 class="h2">Admissions</h2>
+      <span class="pill">Now Open</span>
+    </div>
+    <div class="grid grid-2">
+      <div class="card reveal">
+        <h3>How to Apply</h3>
+        <ol>
+          <li>Fill the form (below) or visit our office.</li>
+          <li>Submit required documents (birth certificate, previous grade report).</li>
+          <li>Interaction/Placement as needed.</li>
+        </ol>
+      </div>
+      <form class="card reveal" onsubmit="apply(event)" aria-label="Admission application form">
+        <div class="grid grid-2">
+          <div>
+            <label for="aName">Student Name</label>
+            <input id="aName" name="studentName" required>
+          </div>
+          <div>
+            <label for="aGrade">Applying for Grade</label>
+            <select id="aGrade" name="grade" required>
+              <option value="">Select…</option>
+              
+              <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+              <option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
+            </select>
+          </div>
+          <div>
+            <label for="aPhone">Parent Phone</label>
+            <input id="aPhone" name="parentPhone" type="tel" required>
+          </div>
+          <div>
+            <label for="aEmail">Email (optional)</label>
+            <input id="aEmail" name="email" type="email">
+          </div>
+        </div>
+        <div style="margin-top:8px">
+          <label for="aMsg">Message</label>
+          <textarea id="aMsg" name="message" placeholder="Any special notes"></textarea>
+        </div>
+        <div style="display:flex; gap:8px; justify-content:flex-end; margin-top:10px">
+          <button class="btn" type="reset">Reset</button>
+          <button class="btn primary" type="submit">Submit</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+
+  <section id="news" class="container">
+    <div class="section-title">
+      <h2 class="h2">News & Events</h2>
+      <a class="btn" href="#" aria-label="View all news and events">View All</a>
+    </div>
+    <div class="grid grid-3">
+      <article class="card reveal" tabindex="0" aria-label="Event: Sports Week 2082">
+        <span class="pill">Event</span>
+        <h3>practical classes</h3>
+        <p class="muted">science,math,opt math,computer.</p>
+        <small class="muted">every saturday</small>
+      </article>
+      <article class="card reveal" tabindex="0" aria-label="Announcement: SEE Toppers Felicitation">
+        <span class="pill">Announcement</span>
+        <h3>SEE Toppers Felicitation</h3>
+        <p class="muted">Celebrating our outstanding SEE performers and mentors.</p>
+        <small class="muted">by nepway</small>
+      </article>
+      <article class="card reveal" tabindex="0" aria-label="Workshop: STEM Maker Day">
+        <span class="pill">science</span>
+        <h3>classes</h3>
+        <p class="muted">5am-8am and 4pm-6pm.</p>
+        <small class="muted">every day</small>
+      </article>
+    </div>
+  </section>
+
+  
+  <section id="gallery" class="container">
+    <div class="section-title">
+      <h2 class="h2">Gallery</h2>
+      <span class="muted">Snapshots from institute life</span>
+    </div>
+    <div class="carousel card reveal" aria-label="Image gallery carousel" role="region">
+      <div class="slides">
+        <img src="https://tse2.mm.bing.net/th/id/OIP.sRmjXbSOenSpc4IQS6Pr1gHaDt?rs=1&pid=ImgDetMain&o=7&rm=3" alt="School campus view">
+        <img src="https://tse2.mm.bing.net/th/id/OIP.iaPKXP4FWkV6n10mh9o7XQHaHC?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Computer lab">
+        <img src="https://www.facebook.com/photo.php?fbid=3750102268582637&set=pb.100007487015449.-2207520000&type=3" alt="Library">
+        <img src="https://www.facebook.com/photo.php?fbid=3752270651699132&set=pb.100007487015449.-2207520000&type=3" alt="Library">
+        <img src="https://www.facebook.com/photo.php?fbid=1032995099037026&set=pb.100069796364444.-2207520000&type=3" alt="Library">
+        <img src="https://www.facebook.com/photo.php?fbid=957991549870715&set=pb.100069796364444.-2207520000&type=3" alt="Library">
+        <img src="https://scontent.fbir7-1.fna.fbcdn.net/v/t39.30808-6/469033092_18261827536252144_4072094988657013060_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=127cfc&_nc_ohc=3O4T24t8PqMQ7kNvwHgiwNN&_nc_oc=AdmVYVHxWWRPL1pO_0Pr9caEDje0RTjNCndBHpqpuz4Lm5r7MBe_YHck625EGZ-MnAI0_x6RUM7oWM9SrlU3sj2N&_nc_zt=23&_nc_ht=scontent.fbir7-1.fna&_nc_gid=DaLhpBhP4nJizsJOSRb0Gw&oh=00_Afb6rzemQ1Eq-ClvAnty6lqIh0AW1iY11IajkLD748rU0A&oe=68D2C738" alt="Library">
+        <img src="https://scontent.fbir7-1.fna.fbcdn.net/v/t39.30808-6/490467765_4061303480795846_869526281642724416_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=103&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=XwI5gG8dKdMQ7kNvwHyOBAX&_nc_oc=AdmAaonvUzpnzPmArJBZemkyF5_lzNHIlaxapMEF36EZlUnka0EJ7W2wB06NKu2wUD_U_eRYs8gmhx5_Lxdxvfe1&_nc_zt=23&_nc_ht=scontent.fbir7-1.fna&_nc_gid=SCKJgDAWYQVQvk5DbWeHXw&oh=00_Afah0W7bXcjcVOPt62BuGnyotuJDmDMfAugSpikavSDndg&oe=68D2B711" alt="Library">
+      </div>
+    </div>
+  </section>
+
+  
+  <section id="teachers" class="container">
+    <div class="section-title">
+      <h2 class="h2">Our Teachers</h2>
+      <span class="muted">Experienced, caring, and committed</span>
+    </div>
+    <div class="grid grid-3">
+      <div class="card teacher reveal" tabindex="0"><div class="avatar" aria-label="Principal Mr. S. Upadhaya">SK</div><div><strong>Mr. S. khadka</strong><div class="muted">founder</div></div></div>
+      <div class="card teacher reveal" tabindex="0"><div class="avatar" aria-label="Science teacher Mr. B. Baral">SK</div><div><strong>Mr. S. khadka</strong><div class="muted">opt.math</div></div></div>
+      <div class="card teacher reveal" tabindex="0"><div class="avatar" aria-label="English teacher Mr. P. Shrestha">MK</div><div><strong>Mrs. M. khadka</strong><div class="muted">account</div></div></div>
+      <div class="card teacher reveal" tabindex="0"><div class="avatar" aria-label="Mathematics teacher Mr. B. Gautam">SK</div><div><strong>Mr. S. karki</strong><div class="muted">tutior</div></div></div>
+      <div class="card teacher reveal" tabindex="0"><div class="avatar" aria-label="Social Studies teacher Mr. P. Timsina">--</div><div><strong>-----</strong><div class="muted">---</div></div></div>
+      <div class="card teacher reveal" tabindex="0"><div class="avatar" aria-label="ICT teacher Mr. G. Hrestha">--</div><div><strong>-------</strong><div class="muted">---</div></div></div>
+    </div>
+  </section>
+
+  
+  <section id="contact" class="container">
+    <div class="section-title">
+      <h2 class="h2">Contact & Location</h2>
+      <span class="pill">Jhumka • Sunsari</span>
+    </div>
+    <div class="grid grid-2">
+      <form class="card reveal" onsubmit="sendMessage(event)" aria-label="Contact form">
+        <div class="grid grid-2">
+          <div><label for="cName">Parent/Guardian</label><input id="cName" name="contactName" required></div>
+          <div><label for="cPhone">Phone</label><input id="cPhone" name="contactPhone" type="tel" required></div>
+          <div><label for="cEmail">Email</label><input id="cEmail" name="contactEmail" type="email"></div>
+          <div><label for="cType">Inquiry Type</label>
+            <select id="cType" name="inquiryType"><option>Admissions</option><option>General</option><option>Transport</option></select>
+          </div>
+        </div>
+        <div style="margin-top:8px">
+          <label for="cMsg">Message</label>
+          <textarea id="cMsg" name="contactMessage" required></textarea>
+        </div>
+        <div style="display:flex; gap:8px; justify-content:flex-end; margin-top:10px">
+          <button class="btn" type="reset">Reset</button>
+          <button class="btn primary" type="submit">Send</button>
+        </div>
+      </form>
+      <div class="card reveal" aria-label="School location and contact details">
+        <h3>Visit Us</h3>
+        <p class="muted">NEPWAY INC, Ramdhuni-5, Sunsari, Nepal</p>
+        <p class="muted">☎ 9845989224s • ✉ nepwayinc@gmail.com</p>
+        <div style="height:240px; border-radius:12px; overflow:hidden; border:1px solid rgba(2,132,199,.2)">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d707.4817225751692!2d87.2012495054331!3d26.671557790418642!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ef1332915e0f6f%3A0x512e86b702614079!2sNepway%20institute!5e1!3m2!1sen!2snp!4v1758205918307!5m2!1sen!2snp" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="SOS HGS School Location Map"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container" style="display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap">
+      <div>© <span id="year"></span> NEPWAY INC. All rights reserved.</div>
+      <div class="muted">created by sutra🤖</div>
+    </div>
+  </footer>
+
+<script>
+  // ===== Mobile menu =====
+  const menuBtn = document.getElementById('menuBtn');
+  const drawer = document.getElementById('drawer');
+  menuBtn?.addEventListener('click', ()=> drawer.classList.toggle('open'));
+  drawer?.querySelectorAll('a').forEach(a=> a.addEventListener('click', ()=>drawer.classList.remove('open')));
+
+  // ===== Counters =====
+  function countUp(el, target, dur=1200){
+    const start = performance.now();
+    const from = 0;
+    const step = (t)=>{
+      const p = Math.min(1, (t-start)/dur);
+      el.textContent = Math.floor(from + (target-from)*p).toLocaleString();
+      if(p<1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+  const k1 = document.getElementById('k1'), k2 = document.getElementById('k2'), k3 = document.getElementById('k3');
+
+  
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); }
+    });
+  }, {threshold:.12});
+  document.querySelectorAll('.reveal, .card').forEach(el=> io.observe(el));
+
+
+  const startCounters = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        countUp(k1, 40); countUp(k2, 5); countUp(k3, 3);
+        startCounters.disconnect();
+      }
+    });
+  }, {threshold:.6});
+  startCounters.observe(document.querySelector('.panel'));
+
+  
+  function apply(e){
+    e.preventDefault();
+    alert('Thanks! Your admission form has been received .');
+    e.target.reset();
+  }
+  function sendMessage(e){
+    e.preventDefault();
+    alert('Message sent! We will contact you soon .');
+    e.target.reset();
+  }
+  
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ===== Carousel auto-slide with pause on hover =====
+  const slides = document.querySelector('.slides');
+  const totalSlides = slides.children.length;
+  let currentIndex = 0;
+  let slideInterval;
+
+  function goToSlide(index) {
+    slides.style.transform = `translateX(-${index * 100}%)`;
+    currentIndex = index;
+  }
+
+  function nextSlide() {
+    let nextIndex = (currentIndex + 1) % totalSlides;
+    goToSlide(nextIndex);
+  }
+
+  function startSlideShow() {
+    slideInterval = setInterval(nextSlide, 5000);
+  }
+
+  function stopSlideShow() {
+    clearInterval(slideInterval);
+  }
+
+  const carousel = document.querySelector('.carousel');
+  carousel.addEventListener('mouseenter', stopSlideShow);
+  carousel.addEventListener('mouseleave', startSlideShow);
+
+  startSlideShow();
+</script>
+</body>
+</html>
