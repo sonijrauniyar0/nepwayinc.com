@@ -131,27 +131,21 @@
   
   /* Carousel styles */
   .carousel {
-    position: relative;
-    border-radius: 14px;
-    overflow: hidden;
-    height: 260px;
-    user-select: none;
-  }
-
-  .slides {
-    display: flex;
-    width: 300%;
-    height: 100%;
-    transition: transform 0.5s ease-in-out;
-  }
-
-  .slides img {
-    width: 100%;
-    flex-shrink: 0;
-    object-fit: cover;
-    pointer-events: none;
-    user-select: none;
-  }
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  height: 260px;
+}
+.slides {
+  display: flex;
+  transition: transform 0.6s ease-in-out;
+  height: 100%;
+}
+.slides img {
+  width: 100%;
+  flex-shrink: 0;
+  object-fit: cover;
+}
 
   .carousel:hover .slides {
     /* Pause animation on hover */
@@ -410,24 +404,20 @@
   </section>
 
   
-  <section id="gallery" class="container">
-    <div class="section-title">
-      <h2 class="h2">Gallery</h2>
-      <span class="muted">Snapshots from institute life</span>
+ <section id="gallery" class="container">
+  <div class="section-title">
+    <h2 class="h2">Gallery</h2>
+    <span class="muted">Snapshots from institute life</span>
+  </div>
+  <div class="carousel card reveal" aria-label="Image gallery carousel" role="region">
+    <div class="slides" id="gallerySlides">
+      <img src="https://tse2.mm.bing.net/th/id/OIP.sRmjXbSOenSpc4IQS6Pr1gHaDt?rs=1&pid=ImgDetMain&o=7&rm=3" alt="School campus view">
+      <img src="https://tse2.mm.bing.net/th/id/OIP.iaPKXP4FWkV6n10mh9o7XQHaHC?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Computer lab">
+      <img src="https://scontent.fbir7-1.fna.fbcdn.net/v/t39.30808-6/469033092_18261827536252144_4072094988657013060_n.jpg" alt="Library">
+      <img src="https://scontent.fbir7-1.fna.fbcdn.net/v/t39.30808-6/490467765_4061303480795846_869526281642724416_n.jpg" alt="Classroom">
     </div>
-    <div class="carousel card reveal" aria-label="Image gallery carousel" role="region">
-      <div class="slides">
-        <img src="https://tse2.mm.bing.net/th/id/OIP.sRmjXbSOenSpc4IQS6Pr1gHaDt?rs=1&pid=ImgDetMain&o=7&rm=3" alt="School campus view">
-        <img src="https://tse2.mm.bing.net/th/id/OIP.iaPKXP4FWkV6n10mh9o7XQHaHC?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Computer lab">
-        <img src="https://www.facebook.com/photo.php?fbid=3750102268582637&set=pb.100007487015449.-2207520000&type=3" alt="Library">
-        <img src="https://www.facebook.com/photo.php?fbid=3752270651699132&set=pb.100007487015449.-2207520000&type=3" alt="Library">
-        <img src="https://www.facebook.com/photo.php?fbid=1032995099037026&set=pb.100069796364444.-2207520000&type=3" alt="Library">
-        <img src="https://www.facebook.com/photo.php?fbid=957991549870715&set=pb.100069796364444.-2207520000&type=3" alt="Library">
-        <img src="https://scontent.fbir7-1.fna.fbcdn.net/v/t39.30808-6/469033092_18261827536252144_4072094988657013060_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=127cfc&_nc_ohc=3O4T24t8PqMQ7kNvwHgiwNN&_nc_oc=AdmVYVHxWWRPL1pO_0Pr9caEDje0RTjNCndBHpqpuz4Lm5r7MBe_YHck625EGZ-MnAI0_x6RUM7oWM9SrlU3sj2N&_nc_zt=23&_nc_ht=scontent.fbir7-1.fna&_nc_gid=DaLhpBhP4nJizsJOSRb0Gw&oh=00_Afb6rzemQ1Eq-ClvAnty6lqIh0AW1iY11IajkLD748rU0A&oe=68D2C738" alt="Library">
-        <img src="https://scontent.fbir7-1.fna.fbcdn.net/v/t39.30808-6/490467765_4061303480795846_869526281642724416_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=103&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=XwI5gG8dKdMQ7kNvwHyOBAX&_nc_oc=AdmAaonvUzpnzPmArJBZemkyF5_lzNHIlaxapMEF36EZlUnka0EJ7W2wB06NKu2wUD_U_eRYs8gmhx5_Lxdxvfe1&_nc_zt=23&_nc_ht=scontent.fbir7-1.fna&_nc_gid=SCKJgDAWYQVQvk5DbWeHXw&oh=00_Afah0W7bXcjcVOPt62BuGnyotuJDmDMfAugSpikavSDndg&oe=68D2B711" alt="Library">
-      </div>
-    </div>
-  </section>
+  </div>
+</section>
 
   
   <section id="teachers" class="container">
@@ -542,36 +532,43 @@
   document.getElementById('year').textContent = new Date().getFullYear();
 
   // ===== Carousel auto-slide with pause on hover =====
-  const slides = document.querySelector('.slides');
-  const totalSlides = slides.children.length;
-  let currentIndex = 0;
-  let slideInterval;
+  <script>
+  const slides = document.getElementById("gallerySlides");
+  const images = slides.querySelectorAll("img");
+  let index = 0;
 
-  function goToSlide(index) {
-    slides.style.transform = `translateX(-${index * 100}%)`;
-    currentIndex = index;
+  function showSlide(i) {
+    slides.style.transform = `translateX(-${i * 100}%)`;
   }
 
   function nextSlide() {
-    let nextIndex = (currentIndex + 1) % totalSlides;
-    goToSlide(nextIndex);
+    index = (index + 1) % images.length;
+    showSlide(index);
   }
 
-  function startSlideShow() {
-    slideInterval = setInterval(nextSlide, 5000);
-  }
+  let autoSlide = setInterval(nextSlide, 3000); // change every 3s
 
-  function stopSlideShow() {
-    clearInterval(slideInterval);
-  }
-
-  const carousel = document.querySelector('.carousel');
-  carousel.addEventListener('mouseenter', stopSlideShow);
-  carousel.addEventListener('mouseleave', startSlideShow);
-
-  startSlideShow();
+  // Pause on hover
+  slides.parentElement.addEventListener("mouseenter", () => clearInterval(autoSlide));
+  slides.parentElement.addEventListener("mouseleave", () => {
+    autoSlide = setInterval(nextSlide, 3000);
+  });
 </script>
+</script>
+  <form action="https://formspree.io/f/yourFormID" method="POST">
+  <label>Name:</label>
+  <input type="text" name="name" required>
+  
+  <label>Email:</label>
+  <input type="email" name="email" required>
+  
+  <label>Message:</label>
+  <textarea name="message" required></textarea>
+  
+  <button type="submit">Send</button>
+</form>
 </body>
 
 </html>
+
 
