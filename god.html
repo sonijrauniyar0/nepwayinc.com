@@ -498,14 +498,12 @@
   }
   const k1 = document.getElementById('k1'), k2 = document.getElementById('k2'), k3 = document.getElementById('k3');
 
-  
   const io = new IntersectionObserver((entries)=>{
     entries.forEach(e=>{
       if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); }
     });
   }, {threshold:.12});
   document.querySelectorAll('.reveal, .card').forEach(el=> io.observe(el));
-
 
   const startCounters = new IntersectionObserver((entries)=>{
     entries.forEach(e=>{
@@ -517,42 +515,20 @@
   }, {threshold:.6});
   startCounters.observe(document.querySelector('.panel'));
 
-  
-  function apply(e){
-    e.preventDefault();
-    alert('Thanks! Your admission form has been received .');
-    e.target.reset();
-  }
-  function sendMessage(e){
-    e.preventDefault();
-    alert('Message sent! We will contact you soon .');
-    e.target.reset();
-  }
+  function apply(e){ e.preventDefault(); alert('Thanks! Your admission form has been received.'); e.target.reset(); }
+  function sendMessage(e){ e.preventDefault(); alert('Message sent! We will contact you soon.'); e.target.reset(); }
   
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  // ===== Carousel auto-slide with pause on hover =====
-  <script>
+  // ===== Carousel auto-slide =====
   const slides = document.getElementById("gallerySlides");
   const images = slides.querySelectorAll("img");
   let index = 0;
-
-  function showSlide(i) {
-    slides.style.transform = `translateX(-${i * 100}%)`;
-  }
-
-  function nextSlide() {
-    index = (index + 1) % images.length;
-    showSlide(index);
-  }
-
-  let autoSlide = setInterval(nextSlide, 3000); // change every 3s
-
-  // Pause on hover
+  function showSlide(i){ slides.style.transform = `translateX(-${i * 100}%)`; }
+  function nextSlide(){ index = (index + 1) % images.length; showSlide(index); }
+  let autoSlide = setInterval(nextSlide, 3000);
   slides.parentElement.addEventListener("mouseenter", () => clearInterval(autoSlide));
-  slides.parentElement.addEventListener("mouseleave", () => {
-    autoSlide = setInterval(nextSlide, 3000);
-  });
+  slides.parentElement.addEventListener("mouseleave", () => { autoSlide = setInterval(nextSlide, 3000); });
 </script>
 
 </body>
